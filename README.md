@@ -4,7 +4,7 @@
 
 ## Install
 1. Edit `weather.py` add your weather station id (https://forecast.weather.gov/stations.php)
-2. Edit `weather.py` add your weather zone id (you will receive alerts for this zone - https://www.weather.gov/pimar/PubZone) 
+2. Edit `weather.py` add your weather zone id (https://www.weather.gov/pimar/PubZone) 
 3. Copy `weather.py` to `/opt/opennms/bin`
 4. Create a cronjob that will run the `weather.py` script `*/10 * * * * /bin/python /opt/opennms/bin/weather.py > /dev/null 2>&1`
 5. Edit `/opt/opennms/jetty-webapps/opennms/index.jsp` and add the below block of code to the appropriate column.
