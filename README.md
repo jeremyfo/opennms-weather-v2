@@ -20,7 +20,7 @@ To add the weather panel to the top of the right column the code would look like
                 <jsp:include page="/includes/weather.jsp" flush="false" />
 ```
 ## Screenshot
-![weather.py screenshot](https://raw.githubusercontent.com/jeremyfo/opennms-weather-v2/master/SCREENSHOT.PNG)
+![weather.py screenshot](https://raw.githubusercontent.com/jeremyfo/opennms-weather-v2/master/SCREENSHOT.png)
 
 ## Issues
 This script has been tested against the latest versions of OpenNMS Horizon and Meridian. After each OpenNMS upgrade you will need to add the code block back to `index.jsp`
