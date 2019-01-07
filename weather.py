@@ -181,7 +181,7 @@ def main():
     else:
         for alert in alerts['features']:
             myFile.write('<li><font color=red><b>{0}</b></font></li>\n'.format(alert['properties']['headline']))
-    myFile.write('<li>Observation Time {0} - {1}</li></ul>\n<hr>\n'.format(obs_time, station_id))
+    myFile.write('<li>Observation Time {0} - {1}</li></ul>'.format(obs_time, station_id))
     #myFile.write('<center><img src="/opennms/includes/radar.gif"></center>' + '\n')
     myFile.write('{0}\n'.format(html_bot))
     myFile.close
