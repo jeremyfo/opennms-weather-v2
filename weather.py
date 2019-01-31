@@ -19,7 +19,12 @@
 #
 
 import json
-import requests # pip install requests if you get an error
+import sys
+if (sys.version_info > (3,0)):
+    import urllib.request
+else:
+    import urllib
+import requests # conda install requests or pip install requests
 
 # Add your weather station id
 station_id = "KSFO"
@@ -29,6 +34,10 @@ zone_id = "CAZ006"
 
 # Fahrenheit set True; Celsius set False
 use_fahrenheit = True
+
+# Show Radar map? If so set Radar Station ID
+show_radar = True
+radar_id = "MUX"
 
 ######
 
@@ -53,6 +62,11 @@ def get_alert_data(zone):
         return None
 
 def get_radar_data(station):
+    radar_url = 'https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?station={0}&num=10&delay=50&rainsnow=1&smooth=1'.format(station)
+    if (sys.version_info > (3,0)):
+        radar = urllib.request.urlretrieve(radar_url,'/opt/opennms/jetty-webapps/opennms/includes/radar.gif')
+    else:
+        radar = urllib.urlretrieve(radar_url,'/opt/opennms/jetty-webapps/opennms/includes/radar.gif')
     return None
 
 def get_compass(degree):
@@ -181,8 +195,10 @@ def main():
     else:
         for alert in alerts['features']:
             myFile.write('<li><font color=red><b>{0}</b></font></li>\n'.format(alert['properties']['headline']))
-    myFile.write('<li>Observation Time {0} - {1}</li></ul>'.format(obs_time, station_id))
-    #myFile.write('<center><img src="/opennms/includes/radar.gif"></center>' + '\n')
+    myFile.write('<li>Observation Time {0} - {1}</li></ul>\n'.format(obs_time, station_id))
+    if radar_id:
+        get_radar_data(radar_id)
+        myFile.write('<hr><center><img src="/opennms/includes/radar.gif"></center>\n')
     myFile.write('{0}\n'.format(html_bot))
     myFile.close
 
