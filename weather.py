@@ -17,6 +17,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# Updated 5/13/2021
+#
+# wunderground radblast radar data is no longer available. Switched to weather.gov radar data.
+#
 
 import json
 import sys
@@ -35,9 +39,9 @@ zone_id = "CAZ006"
 # Fahrenheit set True; Celsius set False
 use_fahrenheit = True
 
-# Show Radar map? If so set Radar Station ID
+# Show Radar map? If so set Radar Station ID (must include leading K)
 show_radar = True
-radar_id = "MUX"
+radar_id = "KMUX"
 
 ######
 
@@ -62,7 +66,7 @@ def get_alert_data(zone):
         return None
 
 def get_radar_data(station):
-    radar_url = 'https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?station={0}&num=10&delay=50&rainsnow=1&smooth=1'.format(station)
+    radar_url = 'https://radar.weather.gov/ridge/lite/{0}_loop.gif'.format(station)
     if (sys.version_info > (3,0)):
         radar = urllib.request.urlretrieve(radar_url,'/opt/opennms/jetty-webapps/opennms/includes/radar.gif')
     else:
@@ -160,14 +164,15 @@ def main():
             session="true"
     %>
 
-    <div class="panel panel-default">
-            <div class="panel-heading">
-                    <h3 class="panel-title">Current Weather</a></h3>
+        <div class="card">
+            <div class="card-header">
+                    <span>Current Weather</span>
             </div>
-    <br>
+        <div class="card-body">
     """
 
     html_bot = """
+        </div>
     </div>
     """
 
@@ -198,7 +203,7 @@ def main():
     myFile.write('<li>Observation Time {0} - {1}</li></ul>\n'.format(obs_time, station_id))
     if radar_id:
         get_radar_data(radar_id)
-        myFile.write('<hr><center><img src="/opennms/includes/radar.gif"></center>\n')
+        myFile.write('<img src="/opennms/includes/radar.gif" class="img-fluid" alt="Radar"></center>\n')
     myFile.write('{0}\n'.format(html_bot))
     myFile.close
 
