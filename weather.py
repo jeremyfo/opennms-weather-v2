@@ -138,15 +138,15 @@ def main():
     else:
         precip = '0.00'
 
-    # Convert m/s to mph
+    # Convert km/h to mph
     if obs['properties']['windSpeed']['value']:
-        windSpeed = round(obs['properties']['windSpeed']['value'] * 2.23694,2)
+        windSpeed = round(obs['properties']['windSpeed']['value'] / 1.609,2)
     else:
         windSpeed = 0
 
-    # Convert m/s to mph
+    # Convert km/h to mph
     if obs['properties']['windGust']['value']:
-        windGust = round(obs['properties']['windGust']['value'] * 2.23694,2)
+        windGust = round(obs['properties']['windGust']['value'] / 1.609,2)
     else:
         windGust = 0
 
